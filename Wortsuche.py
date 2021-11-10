@@ -1,22 +1,18 @@
 import random
 
 
-def td_array(hoehe, breite):
+def td_array(breite, hoehe):
     return [[None] * breite for i in range(hoehe)]
 
 
 def vertikaler_auszug(spalte, zeilen_startpunkt, wort_laenge, array):
-    rueckgabe_array = []
-    for i in range(wort_laenge):
-        rueckgabe_array.append(array[zeilen_startpunkt + i][spalte])
-    return rueckgabe_array
+
+    return [array[zeilen_startpunkt + i][spalte] for i in range(wort_laenge)]
 
 
 def horizontaler_auszug(zeile, spalten_startpunkt, wort_laenge, array):
-    rueckgabe_array = []
-    for i in range(wort_laenge):
-        rueckgabe_array.append(array[zeile][spalten_startpunkt + i])
-    return rueckgabe_array
+
+    return [array[zeile][spalten_startpunkt + i] for i in range(wort_laenge)]
 
 def woerter_einsetzen(richtung, wort, breite, hoehe, array):
 

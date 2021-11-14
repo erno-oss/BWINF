@@ -1,18 +1,27 @@
 import random
-
+from sys import argv
 
 def td_array(breite, hoehe):
+
     return [[None] * breite for i in range(hoehe)]
 
+
 def vertikaler_auszug(spalte, zeilen_startpunkt, wort_laenge, array):
+
     return [array[zeilen_startpunkt + i][spalte] for i in range(wort_laenge)]
 
+
 def horizontaler_auszug(zeile, spalten_startpunkt, wort_laenge, array):
+
     return [array[zeile][spalten_startpunkt + i] for i in range(wort_laenge)]
 
-def woerter_einsetzen(richtung, wort, breite, hoehe, array):
+
+def woerter_einsetzen(richtung, wort, array):
 
     versuche = 100
+
+    hoehe = len(array)
+    breite = len(array[0])
 
     if richtung == "vertikal":
 
@@ -50,13 +59,25 @@ def woerter_einsetzen(richtung, wort, breite, hoehe, array):
         print("richtung muss: vertikal oder horizontal sein.")
 
 
-main_grid = td_array(11, 11)
+if __name__ == "__main__":
 
+    with open(argv[1], "r") as file:
 
-words = ["Apfel", "Banane", "Baum", "Menschen", "Essen", "Schüler", "Hosen", "Pandas", "Pflanzen", "Hüte", "Blumen"]
+        f = file.read().splitlines()
+        goeße = f[0].split(" ")
+        woerter = f[2:len(f)]
+        main_grid = td_array(int(goeße[0]), int(goeße[1]))
 
-for word in words:
-    woerter_einsetzen("vertikal", word, 11, 11, main_grid)
+    for wort in woerter:
+        woerter_einsetzen(random.choice(["vertikal", "horizontal"]), wort, main_grid)
 
-for u in main_grid:
-    print(*u)
+    for x in range(len(main_grid)):
+        for y in range(len(main_grid[x])):
+            if main_grid[x][y] is None:
+                main_grid[x][y] = "."
+            else:
+                pass
+
+    for u in main_grid:
+        print(*u)
+

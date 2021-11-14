@@ -10,17 +10,24 @@ Freunde = [Ada, Nancy, Niklaus, Grace, Edsger, Rosza]
 anzahl = lambda x, y: x.count(y)
 
 
-#a = [anzahl(x, 0) for x in Freunde]
-for y in Freunde:
-    b = [(index, element) for index, element in enumerate(y)]
-    print(b)
-
 a = []
 for Freund in Freunde:
     for index, element in enumerate(Freund):
         if element == 0:
             a.append(index)
-#print(a)
+
 
 z = dict(zip([0, 1, 2, 3, 4, 5, 6], [anzahl(a, x) for x in [0, 1, 2, 3, 4, 5, 6]]))
-#print(z)
+# print(z)
+
+
+print(max(z, key=lambda x: z[x]))
+
+for index, element in enumerate(Freunde):
+    print(element)
+    if element[max(z, key=lambda x: z[index])] != 0:
+        print(element)
+        for index1, element1 in enumerate(element):
+            # print(index1)
+            if element1 == 0 or element1 == 1:
+                print(element1)

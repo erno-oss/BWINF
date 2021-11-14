@@ -7,13 +7,20 @@ Rosza = [1, 2, 1, 2, 0, 1, 1]
 
 Freunde = [Ada, Nancy, Niklaus, Grace, Edsger, Rosza]
 
+anzahl = lambda x, y: x.count(y)
+
+
+#a = [anzahl(x, 0) for x in Freunde]
+for y in Freunde:
+    b = [(index, element) for index, element in enumerate(y)]
+    print(b)
+
 a = []
 for Freund in Freunde:
     for index, element in enumerate(Freund):
         if element == 0:
             a.append(index)
-a.sort()
-print(a)
+#print(a)
 
-
-anzahl = lambda x, y: x.count(y)
+z = dict(zip([0, 1, 2, 3, 4, 5, 6], [anzahl(a, x) for x in [0, 1, 2, 3, 4, 5, 6]]))
+#print(z)

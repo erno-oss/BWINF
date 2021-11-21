@@ -1,7 +1,0 @@
-# for index, element in enumerate(Freund):
-#     if element == 0:
-#         a.append(index)
-
-# for index, element in enumerate(Freunde):
-#     if element[max(z, key=lambda x: z[x])] != 0:
-#         print(element)

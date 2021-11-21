@@ -1,10 +1,11 @@
+from sys import argv
 
 Startpunkt = 0
 Max_Fahrdauer = 360 #min
 Max_Fahrtage = 5
 Zielentfernung = 1200
 
-with open("hotels5.txt", "r") as h:
+with open(argv[1], "r") as h:
     """
     Extrahiert die Daten aus der Test-Datei.
     """
@@ -37,6 +38,7 @@ def verfügbare_hotels(Startpunkt: int, Max_Fahrdauer: int):
 
 
 def hotel_auswahl(method: str):
+    global Startpunkt
     """
     Es wird eine Hotel nach den gegeben Kriterien ausgewählt, entweder nach der Distanz, der Bewertung oder dem Score.
 
@@ -48,7 +50,7 @@ def hotel_auswahl(method: str):
     """
     
     print(f"Startpunkt: {Startpunkt}\nMaximale Fahrdauer am Tag: {Max_Fahrdauer}\nMaximale anzahl an Reisetagen {Max_Fahrtage}\n")
-    global Startpunkt
+    
     durchschnitts_Bewertung = []
     
     """
@@ -56,17 +58,19 @@ def hotel_auswahl(method: str):
     """
     
     for index in range(Max_Fahrtage):
-        zuauswahlstehende_hotels = verfügbare_hotels(Startpunkt, Max_Fahrdauer)
-        if method == "geringste Reisezeit":
-            ausgewähltes_hotel = zuauswahlstehende_hotels.index(max(zuauswahlstehende_hotels, key=lambda x: x[0]))
-        elif method == "beste Bewertet":
-            ausgewähltes_hotel = zuauswahlstehende_hotels.index(max(zuauswahlstehende_hotels, key=lambda x: x[1]))
-        elif method == "beste Bewertung bei geringer Reisezeit":
-            ausgewähltes_hotel = zuauswahlstehende_hotels.index(max(zuauswahlstehende_hotels, key=lambda x: x[2]))
-        else:
-            raise Exception("Keien Reiseart angegeben!")
-        Startpunkt = zuauswahlstehende_hotels[ausgewähltes_hotel][0]
-        durchschnitts_Bewertung.append(zuauswahlstehende_hotels[ausgewähltes_hotel][1])
-        print(f"Stop {index+1} nach {Startpunkt} Minuten: Hotel{zuauswahlstehende_hotels[ausgewähltes_hotel]}")
+        if Startpunkt + Max_Fahrdauer < int(raw_Hotels[1]):
+            zuauswahlstehende_hotels = verfügbare_hotels(Startpunkt, Max_Fahrdauer)
+            if method == "--r":
+                ausgewähltes_hotel = zuauswahlstehende_hotels.index(max(zuauswahlstehende_hotels, key=lambda x: x[0]))
+            elif method == "--b":
+                ausgewähltes_hotel = zuauswahlstehende_hotels.index(max(zuauswahlstehende_hotels, key=lambda x: x[1]))
+            elif method == "--s":
+                ausgewähltes_hotel = zuauswahlstehende_hotels.index(max(zuauswahlstehende_hotels, key=lambda x: x[2]))
+            else:
+                raise Exception("Keien Reiseart angegeben!")
+            Startpunkt = zuauswahlstehende_hotels[ausgewähltes_hotel][0]
+            durchschnitts_Bewertung.append(zuauswahlstehende_hotels[ausgewähltes_hotel][1])
+            print(f"Stop {index+1} nach {Startpunkt} Minuten: Hotel{zuauswahlstehende_hotels[ausgewähltes_hotel]}")
+    print(f"\nEntfernung des Reise Zeils: {raw_Hotels[1]}")
 
-hotel_auswahl("geringste Reisezeit")
+hotel_auswahl(argv[2])
